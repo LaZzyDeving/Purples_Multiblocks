@@ -1,6 +1,5 @@
-package net.purple.pmblock.common.Recipe;
+package net.purple.pmblock.common.recipe;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
