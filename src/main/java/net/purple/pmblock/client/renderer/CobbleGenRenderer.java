@@ -1,0 +1,57 @@
+package net.purple.pmblock.client.renderer;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import net.purple.pmblock.common.block.cobbleGen.CobbleGenBlockEntity;
+import net.purple.pmblock.client.model.CobbleGenModel;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.model.GeoModel;
+
+public class CobbleGenRenderer extends ControllerRenderer<CobbleGenBlockEntity> {
+
+    public CobbleGenRenderer(GeoModel model) {
+        super(model);
+    }
+
+    public CobbleGenRenderer() {
+        super(new CobbleGenModel());
+    }
+
+    @Override
+    public void defaultRender(PoseStack poseStack, CobbleGenBlockEntity animatable, MultiBufferSource bufferSource, @Nullable RenderType renderType, @Nullable VertexConsumer buffer, float yaw, float partialTick, int packedLight) {
+        if(animatable.isAssembled()){
+            poseStack.pushPose();
+            Vec3 offset = new Vec3(0, 0, 1).yRot((float) Math.toRadians(180 - getFacing(animatable).toYRot()));
+            poseStack.translate(offset.x, offset.y, offset.z);
+            super.defaultRender(poseStack, animatable, bufferSource, renderType, buffer, yaw, partialTick, packedLight);
+            renderItem(poseStack, animatable, bufferSource, packedLight);
+            poseStack.popPose();
+        } else {
+            renderController(poseStack, animatable, bufferSource, packedLight);
+        }
+    }
+
+    private void renderItem(PoseStack poseStack, CobbleGenBlockEntity animatable, MultiBufferSource bufferSource, int packedLight) {
+        ItemStack stack = animatable.getItem(0);
+        if(!stack.isEmpty()) {
+            float rot = animatable.boneSnapshots.get("rotating_part").getRotY();
+            Vec3 v = new Vec3(0.75 * animatable.getSpeedRatio(), 1, 0).yRot(rot);
+            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+            poseStack.pushPose();
+            poseStack.translate(0.5, 0, 0.5);
+            poseStack.mulPose(Axis.YP.rotation((float) Math.toRadians(180 - getFacing(animatable).toYRot())));
+            poseStack.translate(v.x, v.y, v.z);
+            itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, bufferSource, animatable.getLevel(), animatable.hashCode());
+            poseStack.popPose();
+        }
+    }
+}
