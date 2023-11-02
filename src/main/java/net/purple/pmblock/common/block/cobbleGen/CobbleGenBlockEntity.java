@@ -1,6 +1,5 @@
 package net.purple.pmblock.common.block.cobbleGen;
 
-import com.electronwill.nightconfig.core.utils.TransformingMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -13,7 +12,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -26,7 +24,6 @@ import net.purple.pmblock.common.block.PMItemHandler;
 import net.purple.pmblock.common.block.multiblock.ControllerBlockEntity;
 import net.purple.pmblock.common.registry.BlockEntityRegistry;
 import net.purple.pmblock.common.registry.BlockRegistry;
-import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -218,7 +215,7 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
     }
 
 
-    public void debug() {
+    public void debugAmount() {
 
         fluidHandlerOptional.ifPresent(PMFluidHandler ->{
             System.out.println(PMFluidHandler.getFluidInTank(1).getAmount());

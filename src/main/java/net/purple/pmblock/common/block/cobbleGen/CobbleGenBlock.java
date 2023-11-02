@@ -69,17 +69,15 @@ public class CobbleGenBlock extends ControllerBlock {
         ItemStack held = pPlayer.getItemInHand(pHand);
         CobbleGenBlockEntity cobbleGenBlockEntity = (CobbleGenBlockEntity) pLevel.getBlockEntity(pPos);
 
-        System.out.println("Before Test - test");
-// && held.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent()
-
         if (FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pPos, pHit.getDirection()) || held.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent()) {
-            System.out.println("PMTest - Use Water Bucket");
+            System.out.println("PMTest - Use (Water) Bucket");
 
-            cobbleGenBlockEntity.debug();
+            cobbleGenBlockEntity.debugAmount();
             return InteractionResult.SUCCESS;
         }
 
 
+        // TODO - Either add myself or check if SynchromaFluidHandler.fill does handle it
         if (cobbleGenBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent() ){
             if(held.getItem() instanceof BucketItem){
 
@@ -87,9 +85,6 @@ public class CobbleGenBlock extends ControllerBlock {
             return InteractionResult.SUCCESS;
         }
 
-
-
-        cobbleGenBlockEntity.outputCobble();
 
         return super.use(pState,pLevel,pPos,pPlayer,pHand,pHit);
     }

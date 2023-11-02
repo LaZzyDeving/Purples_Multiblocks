@@ -188,11 +188,6 @@ public class PMFluidHandler implements IFluidHandler, INBTSerializable<CompoundT
                 return 0;
             }
 
-            // Execution and Simulation
-
-
-
-            // IFluidHandler Simulation TODO - needed ? What happens if I dont do that ?
             if (action.simulate()) {
                 // If the tank is empty fill it but max to the capacity amount
                 if (fluid.isEmpty()) {
