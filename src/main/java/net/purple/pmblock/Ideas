@@ -1,4 +1,4 @@
-
+//
 
 
 
@@ -7,5 +7,13 @@
     - Biome Changer
     - Pulse Gen > Good Average RF/Tick but needing huge storage because only outputs once every 2 mins
 
-    // TODO - Add Cobblegen basic function
     // Look at Visualworkbench renderer > Implement for Items crafted in CobbleGen
+
+// TODO - Cobblegen
+1. Find new Name and change it everywhere
+2. Change model
+3. Add Renderer to show the 2 liquids
+4. Add Renderer for the block that gets crafted - Look at the Visualworkbench renderer
+5. Add Animation for the processing. Maybe multiple
+6. Add Recipe Interaction
+7. Nice Textures

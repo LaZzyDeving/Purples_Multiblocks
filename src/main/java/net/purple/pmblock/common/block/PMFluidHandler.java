@@ -11,7 +11,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.purple.pmblock.PMBlock;
 import org.jetbrains.annotations.NotNull;
 
-
 import java.util.Arrays;
 import java.util.function.Predicate;
 
@@ -185,8 +184,7 @@ public class PMFluidHandler implements IFluidHandler, INBTSerializable<CompoundT
 
         @Override
         public boolean isFluidValid(FluidStack stack) {
-            return true;
-            // FIXME return validator.test(stack);
+            return validator.test(stack);
         }
 
         @Override
