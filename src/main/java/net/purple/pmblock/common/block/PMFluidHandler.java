@@ -3,6 +3,7 @@ package net.purple.pmblock.common.block;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -86,14 +87,21 @@ public class PMFluidHandler implements IFluidHandler, INBTSerializable<CompoundT
     @Override
     public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
         int drained = 0;
-        Fluid fluid = Arrays.stream(tanks).map(t -> t.fluid.getFluid()).toList().get(getTanks() - 1);
+
+        Fluid lastfluid = Arrays.stream(tanks)
+                .map(t -> t.fluid.getFluid())
+                .filter(fluid -> fluid != Fluids.EMPTY)
+                .reduce((first, second) -> second)
+                .orElse(Fluids.EMPTY);
+
+        // FILO for the Tanks
         for (int i = tanks.length - 1; i >= 0; i--) {
-            if(tanks[i].getFluid().getFluid().isSame(fluid)) {
+            if(tanks[i].getFluid().getFluid().isSame(lastfluid)) {
                 FluidStack stack = tanks[i].drain(maxDrain - drained, action);
                 drained += stack.getAmount();
             }
         }
-        return new FluidStack(fluid, drained);
+        return new FluidStack(lastfluid, drained);
     }
 
     /*
@@ -239,6 +247,7 @@ public class PMFluidHandler implements IFluidHandler, INBTSerializable<CompoundT
             }
             return drain(resource.getAmount(), action);
         }
+
         @Override
         public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
             int drained = maxDrain;

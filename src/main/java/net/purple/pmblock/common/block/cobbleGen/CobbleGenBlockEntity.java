@@ -109,6 +109,8 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
         BlockState a = BlockRegistry.COBBLE_GEN.get().defaultBlockState();
         BlockState b = Blocks.OAK_PLANKS.defaultBlockState();
         BlockState c = null;
+
+        //FIXME
         return new BlockState[][][]{
                 {{b, b, c},{b, b, c},{c, c, c}},
                 {{a, b, c},{b, b, c},{c, c, c}},
@@ -146,7 +148,7 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
 
     // TODO > Also JEI ?
     public static void serverTick(Level level, BlockPos pos, BlockState blockState, CobbleGenBlockEntity cobbleGenBlockEntity) {
-
+        cobbleGenBlockEntity.markUpdated();
     }
 
     protected void outputCobble() {
@@ -218,7 +220,11 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
     public void debugAmount() {
 
         fluidHandlerOptional.ifPresent(PMFluidHandler ->{
-            System.out.println(PMFluidHandler.getFluidInTank(1).getAmount());
+            for(int i = 0 ; i < PMFluidHandler.getTanks();i++){
+                System.out.println("Tank:" + i + ": " + PMFluidHandler.getFluidInTank(i).getAmount());
+            }
+
+
         });
     }
 }
