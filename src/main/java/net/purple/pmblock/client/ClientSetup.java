@@ -8,7 +8,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.purple.pmblock.PMBlock;
-import net.purple.pmblock.client.renderer.CobbleGenRenderer;
+import net.purple.pmblock.client.renderer.FluidSolidifierRenderer;
 import net.purple.pmblock.common.registry.BlockEntityRegistry;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +24,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(BlockEntityRegistry.COBBLE_GEN.get(), pContext -> new CobbleGenRenderer());
+        event.registerBlockEntityRenderer(BlockEntityRegistry.FLUID_SOLIDIFIER.get(), pContext -> new FluidSolidifierRenderer());
 
     }
 

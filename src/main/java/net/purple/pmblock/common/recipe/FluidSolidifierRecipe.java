@@ -15,14 +15,14 @@ import org.jetbrains.annotations.Nullable;
 
 import static net.purple.pmblock.PMBlock.MOD_ID;
 
-public class CobbleGenRecipe implements Recipe<SimpleContainer> {
+public class FluidSolidifierRecipe implements Recipe<SimpleContainer> {
 
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
 
     private final ResourceLocation id;
 
-    public CobbleGenRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id) {
+    public FluidSolidifierRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id) {
         this.inputItems = inputItems;
         this.output = output;
         this.id = id;
@@ -67,18 +67,18 @@ public class CobbleGenRecipe implements Recipe<SimpleContainer> {
         return Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<CobbleGenRecipe>{
+    public static class Type implements RecipeType<FluidSolidifierRecipe>{
         public static final Type INSTANCE = new Type();
-        public static final String ID = "cobble_gen";
+        public static final String ID = "fluid_solidifier";
     }
 
-    public static class Sereializer implements RecipeSerializer<CobbleGenRecipe>{
+    public static class Sereializer implements RecipeSerializer<FluidSolidifierRecipe>{
 
         public static final Sereializer INSTANCE = new Sereializer();
-        public static final ResourceLocation ID = new ResourceLocation(MOD_ID,"cobble_gen");
+        public static final ResourceLocation ID = new ResourceLocation(MOD_ID,"fluid_solidifier");
 
         @Override
-        public CobbleGenRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        public FluidSolidifierRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe,"output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe,"ingredients");
@@ -88,11 +88,11 @@ public class CobbleGenRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new CobbleGenRecipe(inputs,output,pRecipeId);
+            return new FluidSolidifierRecipe(inputs,output,pRecipeId);
         }
 
         @Override
-        public @Nullable CobbleGenRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        public @Nullable FluidSolidifierRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
 
             for(int i = 0; i> inputs.size(); i++){
@@ -100,11 +100,11 @@ public class CobbleGenRecipe implements Recipe<SimpleContainer> {
             }
 
             ItemStack output = pBuffer.readItem();
-            return new CobbleGenRecipe(inputs,output,pRecipeId);
+            return new FluidSolidifierRecipe(inputs,output,pRecipeId);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, CobbleGenRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, FluidSolidifierRecipe pRecipe) {
             pBuffer.writeInt(pRecipe.inputItems.size());
 
             for(Ingredient ingredient : pRecipe.getIngredients()){

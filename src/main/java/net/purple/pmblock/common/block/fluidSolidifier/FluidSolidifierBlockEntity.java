@@ -1,4 +1,4 @@
-package net.purple.pmblock.common.block.cobbleGen;
+package net.purple.pmblock.common.block.fluidSolidifier;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class CobbleGenBlockEntity extends ControllerBlockEntity {
+public class FluidSolidifierBlockEntity extends ControllerBlockEntity {
 
     // TODO - Make own or not make own ?
     
@@ -52,8 +52,8 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
 
     private final LazyOptional<PMFluidHandler> fluidHandlerOptional = LazyOptional.of(() -> new PMFluidHandler(
             new PMFluidHandler.PMFluidTank[]{
-                    new PMFluidHandler.PMFluidTank(1000, CobbleGenBlockEntity::isInRecipeListBase),
-                    new PMFluidHandler.PMFluidTank(3000, CobbleGenBlockEntity::isInRecipeListAccel)}));
+                    new PMFluidHandler.PMFluidTank(1000, FluidSolidifierBlockEntity::isInRecipeListBase),
+                    new PMFluidHandler.PMFluidTank(3000, FluidSolidifierBlockEntity::isInRecipeListAccel)}));
 
     public static ArrayList<Fluid> RecipeListBase;
     public static ArrayList<Fluid> RecipleListAccelerator;
@@ -77,7 +77,7 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
 
 
 
-    // Cobble gen specifics
+    // Fluid Solidifier specifics
 
 
     // TODO - Add First in first out > Out and in with buckets
@@ -100,13 +100,13 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
 
     float speedRatio = 0;
 
-    public CobbleGenBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BlockEntityRegistry.COBBLE_GEN.get(), pPos, pBlockState);
+    public FluidSolidifierBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(BlockEntityRegistry.FLUID_SOLIDIFIER.get(), pPos, pBlockState);
     }
 
     @Override
     public BlockState[][][] getBlockPattern() {
-        BlockState a = BlockRegistry.COBBLE_GEN.get().defaultBlockState();
+        BlockState a = BlockRegistry.FLUID_SOLIDIFIER.get().defaultBlockState();
         BlockState b = Blocks.OAK_PLANKS.defaultBlockState();
         BlockState c = null;
 
@@ -128,7 +128,7 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
     // TODO - Whats the DisplayName ? > Also no lang key for this yet
     @Override
     public Component getDisplayName() {
-        return Component.literal("machine.cobble_gen");
+        return Component.literal("machine.fluid_solidifier");
     }
 
     @Override
@@ -147,12 +147,8 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
 
 
     // TODO > Also JEI ?
-    public static void serverTick(Level level, BlockPos pos, BlockState blockState, CobbleGenBlockEntity cobbleGenBlockEntity) {
-        cobbleGenBlockEntity.markUpdated();
-    }
-
-    protected void outputCobble() {
-
+    public static void serverTick(Level level, BlockPos pos, BlockState blockState, FluidSolidifierBlockEntity fluidSolidifierBlockEntity) {
+        fluidSolidifierBlockEntity.markUpdated();
     }
     
     // GeckoLib necessity
@@ -161,7 +157,7 @@ public class CobbleGenBlockEntity extends ControllerBlockEntity {
         controllers.add(new AnimationController<>(this,this::deployAnimController));
     }
 
-    protected <E extends CobbleGenBlockEntity> PlayState deployAnimController(final AnimationState<E> state) {
+    protected <E extends FluidSolidifierBlockEntity> PlayState deployAnimController(final AnimationState<E> state) {
         return state.setAndContinue(DEPLOY);
     }
 

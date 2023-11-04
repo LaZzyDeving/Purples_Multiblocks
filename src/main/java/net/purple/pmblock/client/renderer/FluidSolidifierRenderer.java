@@ -11,23 +11,23 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.purple.pmblock.common.block.cobbleGen.CobbleGenBlockEntity;
-import net.purple.pmblock.client.model.CobbleGenModel;
+import net.purple.pmblock.common.block.fluidSolidifier.FluidSolidifierBlockEntity;
+import net.purple.pmblock.client.model.FluidSolidifierModel;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.model.GeoModel;
 
-public class CobbleGenRenderer extends ControllerRenderer<CobbleGenBlockEntity> {
+public class FluidSolidifierRenderer extends ControllerRenderer<FluidSolidifierBlockEntity> {
 
-    public CobbleGenRenderer(GeoModel model) {
+    public FluidSolidifierRenderer(GeoModel model) {
         super(model);
     }
 
-    public CobbleGenRenderer() {
-        super(new CobbleGenModel());
+    public FluidSolidifierRenderer() {
+        super(new FluidSolidifierModel());
     }
 
     @Override
-    public void defaultRender(PoseStack poseStack, CobbleGenBlockEntity animatable, MultiBufferSource bufferSource, @Nullable RenderType renderType, @Nullable VertexConsumer buffer, float yaw, float partialTick, int packedLight) {
+    public void defaultRender(PoseStack poseStack, FluidSolidifierBlockEntity animatable, MultiBufferSource bufferSource, @Nullable RenderType renderType, @Nullable VertexConsumer buffer, float yaw, float partialTick, int packedLight) {
         if(animatable.isAssembled()){
             poseStack.pushPose();
             Vec3 offset = new Vec3(0, 0, 1).yRot((float) Math.toRadians(180 - getFacing(animatable).toYRot()));
@@ -40,7 +40,7 @@ public class CobbleGenRenderer extends ControllerRenderer<CobbleGenBlockEntity> 
         }
     }
 
-    private void renderItem(PoseStack poseStack, CobbleGenBlockEntity animatable, MultiBufferSource bufferSource, int packedLight) {
+    private void renderItem(PoseStack poseStack, FluidSolidifierBlockEntity animatable, MultiBufferSource bufferSource, int packedLight) {
         ItemStack stack = animatable.getItem(0);
         if(!stack.isEmpty()) {
             float rot = animatable.boneSnapshots.get("rotating_part").getRotY();

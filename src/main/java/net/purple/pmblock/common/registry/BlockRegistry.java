@@ -9,7 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.purple.pmblock.PMBlock;
-import net.purple.pmblock.common.block.cobbleGen.CobbleGenBlock;
+import net.purple.pmblock.common.block.fluidSolidifier.FluidSolidifierBlock;
 import net.purple.pmblock.common.pmblocks.Controller_HubBlock;
 import net.purple.pmblock.common.block.multiblock.MimicBlock;
 
@@ -35,8 +35,8 @@ public class BlockRegistry {
             () -> new MimicBlock(DEFAULT_PROPERTIES));
 
 
-    public static final RegistryObject<Block> COBBLE_GEN = registerBlockSimple("cobble_gen",
-            ()-> new CobbleGenBlock(DEFAULT_PROPERTIES));
+    public static final RegistryObject<Block> FLUID_SOLIDIFIER = registerBlockSimple("fluid_solidifier",
+            ()-> new FluidSolidifierBlock(DEFAULT_PROPERTIES));
 
 
     /******************************************************************

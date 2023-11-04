@@ -5,7 +5,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.purple.pmblock.PMBlock;
-import net.purple.pmblock.common.block.cobbleGen.CobbleGenBlockEntity;
+import net.purple.pmblock.common.block.fluidSolidifier.FluidSolidifierBlockEntity;
 import net.purple.pmblock.common.block.multiblock.MimicBlockEntity;
 
 
@@ -24,8 +24,8 @@ public class BlockEntityRegistry {
             () -> BlockEntityType.Builder.of(MimicBlockEntity::new, BlockRegistry.MIMIC.get()).build(null));
 
 
-    public static final RegistryObject<BlockEntityType<CobbleGenBlockEntity>> COBBLE_GEN = BLOCK_ENTITIES.register("cobble_gen",
-            ()-> BlockEntityType.Builder.of(CobbleGenBlockEntity::new, BlockRegistry.COBBLE_GEN.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FluidSolidifierBlockEntity>> FLUID_SOLIDIFIER = BLOCK_ENTITIES.register("fluid_solidifier",
+            ()-> BlockEntityType.Builder.of(FluidSolidifierBlockEntity::new, BlockRegistry.FLUID_SOLIDIFIER.get()).build(null));
 
 
 
