@@ -50,6 +50,8 @@ public class FluidSolidifierBlockEntity extends ControllerBlockEntity {
     
     private final LazyOptional<PMItemHandler> itemHandlerOptional = LazyOptional.of(() -> new PMItemHandler(1));
 
+    // Fluid Solidifer Specifics - Fluid Handler
+
     private final LazyOptional<PMFluidHandler> fluidHandlerOptional = LazyOptional.of(() -> new PMFluidHandler(
             new PMFluidHandler.PMFluidTank[]{
                     new PMFluidHandler.PMFluidTank(1000, FluidSolidifierBlockEntity::isInRecipeListBase),
@@ -77,7 +79,24 @@ public class FluidSolidifierBlockEntity extends ControllerBlockEntity {
 
 
 
-    // Fluid Solidifier specifics
+    // Fluid Solidifier specifics - Tanks
+
+    public LazyOptional<PMFluidHandler> getFluidHandlerOptional() {
+        return fluidHandlerOptional;
+    }
+
+    public FluidStack[] getFluids(){
+        FluidStack[] fluidstacks = new FluidStack[2];
+        if (fluidHandlerOptional.isPresent()){ // Check if the fluidHandler exist. If it does return the 2 Fluids. > WARNING: Highly Dangerous if condition changes
+            fluidstacks[0] = fluidHandlerOptional.orElse(null).getFluidInTank(1);
+            fluidstacks[1] = fluidHandlerOptional.orElse(null).getFluidInTank(2);
+        }
+        else {
+            fluidstacks[0] = FluidStack.EMPTY;
+            fluidstacks[1] = FluidStack.EMPTY;
+        }
+        return fluidstacks;
+    }
 
 
     // TODO - Add First in first out > Out and in with buckets

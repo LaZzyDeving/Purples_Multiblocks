@@ -71,14 +71,7 @@ public class FluidSolidifierBlock extends ControllerBlock {
             return InteractionResult.SUCCESS;
         }
 
-
-        // TODO - Either add myself or check if SynchromaFluidHandler.fill does handle it
-        if (fluidSolidifierBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent() ){
-            if(held.getItem() instanceof BucketItem){
-
-            }
-            return InteractionResult.SUCCESS;
-        }
+        // FIXME - Doesnt assemble on rightclick
 
 
         return super.use(pState,pLevel,pPos,pPlayer,pHand,pHit);

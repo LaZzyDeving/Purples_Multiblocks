@@ -50,7 +50,7 @@ public abstract class PmBlockEntity extends BlockEntity implements Container, Me
         // Check if the Container is empty or the pSlot is out of index
         if(getItems() == null || pSlot >= getItems().size()){
             return ItemStack.EMPTY;
-        };
+        }
         // Otherwise return the Itemstack at Slot X
         return getItems().get(pSlot);
     }
@@ -63,7 +63,7 @@ public abstract class PmBlockEntity extends BlockEntity implements Container, Me
         // When there is something to remove
         if (!itemStack.isEmpty()){
             this.setChanged();
-        };
+        }
         return itemStack;
     }
 

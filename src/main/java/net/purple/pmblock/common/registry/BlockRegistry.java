@@ -67,7 +67,7 @@ public class BlockRegistry {
         RegistryObject<T> toReturn = BLOCKS.register(name,block);
         registerBlockItem(name,toReturn);
         return toReturn;
-    };
+    }
     // Adding BlockItem
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block){
         return ItemRegistry.ITEMS.register(name, ()-> new BlockItem(block.get(), new Item.Properties()));

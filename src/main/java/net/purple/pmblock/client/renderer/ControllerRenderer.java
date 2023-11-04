@@ -67,4 +67,5 @@ public abstract class ControllerRenderer<T extends ControllerBlockEntity> extend
         }
         poseStack.popPose();
     }
+
 }
